@@ -15,10 +15,16 @@ public class Demo {
             );
 
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("SHOW databases");
+            ResultSet rs = statement.executeQuery("SELECT * FROM albums");
 
             while(rs.next()) {
-                System.out.println("rs.getString(\"Database\") = " + rs.getString("Database"));
+                System.out.println(rs.getLong(1));
+                System.out.println(rs.getString(2));
+                System.out.println(rs.getString(3));
+                System.out.println(rs.getInt("release_date"));
+                System.out.println(rs.getDouble("sales"));
+                System.out.println(rs.getString("genre"));
+                System.out.println("--------------------");
             }
 
         } catch (SQLException throwables) {
