@@ -29,13 +29,26 @@ public class Demo {
             }
 
             //CREATE
-            String query = "INSERT INTO albums (artist, name, release_date, genre, sales) VALUES('Princess Jasmine', 'Take Me To The Moon', 2020, 'Pop', 20.0)";
+            String query = "INSERT INTO albums (artist, name, release_date, genre, sales) VALUES('Princess Not Jasmine', 'Take Me To The Moon', 2020, 'Pop', 20.0)";
             statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
             rs = statement.getGeneratedKeys();
 
             if(rs.next()) {
                 System.out.println("Inserted a new record! New id: " + rs.getLong(1));
             }
+
+            //DELETE
+            long idToDelete = 34;
+            query = "DELETE from albums WHERE id = " + idToDelete;
+            statement.execute(query);
+            System.out.println(idToDelete + " is gone!");
+
+            //UPDATE
+            double sales = 2;
+            long idToUpdate = 37;
+            statement.execute("UPDATE albums SET sales = " + sales + "");
+            System.out.println(idToUpdate + " is updated");
+
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
