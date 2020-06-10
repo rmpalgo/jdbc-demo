@@ -17,6 +17,7 @@ public class Demo {
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM albums");
 
+            //READ
             while(rs.next()) {
                 System.out.println(rs.getLong(1));
                 System.out.println(rs.getString(2));
@@ -25,6 +26,15 @@ public class Demo {
                 System.out.println(rs.getDouble("sales"));
                 System.out.println(rs.getString("genre"));
                 System.out.println("--------------------");
+            }
+
+            //CREATE
+            String query = "INSERT INTO albums (artist, name, release_date, genre, sales) VALUES('Princess Jasmine', 'Take Me To The Moon', 2020, 'Pop', 20.0)";
+            statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+            rs = statement.getGeneratedKeys();
+
+            if(rs.next()) {
+                System.out.println("Inserted a new record! New id: " + rs.getLong(1));
             }
 
         } catch (SQLException throwables) {
